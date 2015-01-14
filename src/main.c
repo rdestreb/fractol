@@ -1,0 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/01/13 13:39:43 by rdestreb          #+#    #+#             */
+/*   Updated: 2015/01/14 18:13:40 by rdestreb         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+# include "fractol.h"
+
+void	init_params(t_disp *d)
+{
+	t_param	*par;
+
+	par = get_params();
+	par->zoom = 200;
+	par->x0 = d->win_size / 2;
+	par->y0 = d->win_size / 2;
+	par->max_iter = 1000;
+}
+
+t_param	*get_params(void)
+{
+	static t_param	*par = NULL;
+
+	if (par)
+		return (par);
+	par = (t_param *)ft_memalloc(sizeof(t_param));
+	return (par);
+}
+
+void	wrong_entry(int ac)
+{
+	if (ac > 2)
+		ft_putstr_fd("Error : too many arguments.\n", 2);
+	else if (ac == 2)
+		ft_putstr_fd("Error : wrong entry.\n", 2);
+	ft_putstr_fd("Please enter the digit corresponding to", 2);
+	ft_putstr_fd(" the fractal you wanna display among :\n", 2);
+	ft_putstr_fd(" 1 : Mendelbrot \n 2 : Julia \n 3 : Other\n", 2);
+	exit (1);
+}
+
+int		main(int ac, char **av)
+{
+	if (ac == 2 && (!ft_strcmp(av[1], "1") || !ft_strcmp(av[1], "2")
+					|| !ft_strcmp(av[1], "3")))
+	{
+		ft_putstr("OK");
+		main_draw(av[1]);
+	}
+	else
+		wrong_entry(ac);
+	return (0);
+}
