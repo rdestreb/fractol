@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 13:39:43 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/15 16:23:14 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/15 20:36:23 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	init_params(t_disp *d)
 	par->y0 = d->win_size / 2;
 	par->mod1 = 0;
 	par->mod2 = 0;
-	ft_putendl("coucou");
-	par->max_iter = 1000;
+	par->max_iter = 100;
 	(void)d;
 }
 

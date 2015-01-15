@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:49:11 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/15 11:13:40 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/15 20:14:41 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ int		degrade_blue(t_color *rgb, int cpt)
 
 //	cpt *= 10;
 	if (cpt == 0)
+	{
 		rgb->b = 255;
+		rgb->g = 0;
+		rgb->r = 0;
+	}
 	if (cpt > 0 && cpt <= 255)
 		rgb->r++;
 	if (cpt > 255 && cpt <= 510)
