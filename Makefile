@@ -6,7 +6,7 @@
 #    By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/25 10:38:16 by rdestreb          #+#    #+#              #
-#    Updated: 2015/01/13 18:02:24 by rdestreb         ###   ########.fr        #
+#    Updated: 2015/01/15 16:26:59 by rdestreb         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -23,7 +23,7 @@ SRC =	main.c \
 
 OBJS = $(SCRFILES:.c=.o)
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -O3 -Wall -Werror -Wextra
 LDFLAGS = -L ./libft/ -lft -L/usr/X11/lib -lmlx -lXext -lX11
 LIBFT = ./libft/libft.a
 

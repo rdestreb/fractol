@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:42:55 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/14 18:13:47 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/15 16:30:17 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,29 @@
 
 int		expose_hook(t_disp *d)
 {
+	t_param	*par;
 
-	mlx_put_image_to_window(d->mlx, d->win, d->img->ptr, 0, 0);
+	par = get_params();
+	mlx_put_image_to_window(d->mlx, d->win, d->img->ptr, par->x_d, par->y_d);
 	return (0);
 }
 
 int		key_hook(int keycode, t_disp *d)
 {
-//	t_param*par;
+	t_param	*par;
 
-//	par = get_params();
+	par = get_params();
 	if (keycode == 65307)
 		exit(1);
-/*	if (keycode == 65361)
-		par->x0 -= 10;
+	if (keycode == 65361)
+		par->x_d -= 2;
 	if (keycode == 65362)
-		par->y0 -= 10;
+		par->y_d -= 2;
 	if (keycode == 65363)
-		par->x0 += 10;
+		par->x_d += 2;
 	if (keycode == 65364)
-		par->y0 += 10;
-	if (keycode == 65367 && par->cst > 0)
+		par->y_d += 2;
+/*	if (keycode == 65367 && par->cst > 0)
 		par->cst -= 0.1;
 	if (keycode == 65360 && par->cst < 2)
 		par->cst += 0.1;
@@ -42,7 +44,7 @@ int		key_hook(int keycode, t_disp *d)
 		par->cst2 += 0.1;
 	if (keycode == 65366 && par->cst2 > 0)
 		par->cst2 -= 0.1;
-*/	mlx_clear_window(d->mlx, d->win);
+*/	//mlx_clear_window(d->mlx, d->win);
 	expose_hook(d);
 	return (0);
 }
@@ -53,32 +55,44 @@ int		mouse_hook(int button, int x, int y, t_disp *d)
 	y = y;
 	button = button;
 	d = d;
-/*	t_param*par;
+	t_param	*par;
 
 	par = get_params();
-	if (button == 3)
-		par->proj += 1;
-	if (button == 4 && par->zoom < 100)
-		par->zoom += 1;
-	if (button == 5 && par->zoom > 0)
-		par->zoom -= 1;
-	mlx_clear_window(d->mlx, d->win);
+//	if (button == 3)
+//		par->proj += 1;
+	if (button == 1 && par->zoom < 1000)
+	{
+		par->x0 = (x - d->win_size / 2) / 100;
+		par->y0 = (y - d->win_size / 2) / 100;
+		par->zoom += 100;
+	}
+	if (button == 3 && par->zoom > 0)
+	{
+		par->x0 = (x - d->win_size / 2) / 100;
+		par->y0 = (y - d->win_size / 2) / 100;
+		par->zoom -= 100;
+	}
+//	mlx_clear_window(d->mlx, d->win);
+	draw_fractal(d);
 	expose_hook(d);
-*/	return (0);
+	return (0);
 }
 
 int		motion_hook(int x, int y, t_disp *d)
 {
-	x = x;
-	y = y;
-	(void)d;
-/*	if (x > 0 && x < d->win_size)
-		d->par->x0 = x;
+//	x = x;
+//	y = y;
+//	(void)d;
+	t_param	*par;
+
+	par = get_params();
+	if (x > 0 && x < d->win_size)
+		par->mod1 = x - par->x0;
 	if (y > 0 && y < d->win_size)
-		d->par->y0 = y;
-	mlx_clear_window(d->mlx, d->win);
+		par->mod2 = y - par->y0;
+//	mlx_clear_window(d->mlx, d->win);
 	expose_hook(d);
-*/	return (0);
+	return (0);
 }
 
 void	main_draw(char *fract)
@@ -87,11 +101,14 @@ void	main_draw(char *fract)
 
 	d = (t_disp *)ft_memalloc(sizeof(t_disp));
 	d->win_size = 1000;
-	d->mlx = mlx_init();
+	d->fract = ft_atoi(fract);
+	if (!(d->mlx = mlx_init()))
+		return ;
 	d->win = mlx_new_window(d->mlx, d->win_size, d->win_size, "fract'ol");
 	init_params(d);
+	ft_putnbr(d->fract);
 	create_image(d);
-	draw_fractal(d, fract);
+	draw_fractal(d);
 	mlx_expose_hook(d->win, expose_hook, d);
 	mlx_key_hook(d->win, key_hook, d);
 	mlx_mouse_hook(d->win, mouse_hook, d);

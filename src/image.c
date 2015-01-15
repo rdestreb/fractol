@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:49:11 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/14 19:45:55 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/15 11:13:40 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ void	create_image(t_disp *d)
 	d->img->ptr = mlx_new_image(d->mlx, d->img->width, d->img->heigth);
 	d->img->data = mlx_get_data_addr(d->img->ptr, &d->img->bpp,
 									&d->img->size_line, &d->img->endian);
+//	ft_putnbr(d->fract);
 }
 

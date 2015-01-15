@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/06 08:23:08 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/14 19:28:08 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/15 16:22:58 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,22 @@ typedef struct s_disp	t_disp;
 
 struct  s_cpx
 {
-	double	zr;
-	double	zi;
-	double	cr;
-	double	ci;
+	float	zr;
+	float	zi;
+	float	cr;
+	float	ci;
 };
 
 struct  s_param
 {
 	int	zoom;
 	int	max_iter;
-	double	x0;
-	double	y0;
+	float	x0;
+	float	y0;
+	float	mod1;
+	float	mod2;
+	int		x_d;
+	int		y_d;
 };
 
 struct	s_image
@@ -63,6 +67,7 @@ struct	s_disp
 {
 	void	*mlx;
 	void	*win;
+	int		fract;
 	t_image	*img;
 	t_param	*par;
 	t_cpx	*c;
@@ -81,7 +86,7 @@ int		degrade_blue(t_color *rgb, int cpt);
 int		rgb_to_int(t_color *rgb);
 void	init_params(t_disp *d);
 t_param	*get_params(void);
-void	mandelbrot(t_disp *d, t_param *par, double x, double y);
-void	draw_fractal(t_disp *d, char *fract);
+void	mandelbrot(t_disp *d, t_param *par, float x, float y);
+void	draw_fractal(t_disp *d);
 
 #endif
