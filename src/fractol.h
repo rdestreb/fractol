@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/06 08:23:08 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/17 16:05:43 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/17 17:10:51 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ struct  s_cpx
 
 struct  s_param
 {
-	int	zoom;
+	float	zoom;
 	int	max_iter;
 	float	win_size;
 	float	x0;
@@ -74,7 +74,7 @@ struct	s_disp
 	t_image	*img;
 	t_param	*par;
 	t_cpx	*c;
-	int		win_size;
+	float	win_size;
 };
 
 void	wrong_entry(int ac);
@@ -87,7 +87,7 @@ int		expose_hook(t_disp *d);
 int		mlx_pxl_to_image(t_image *img, int x, int y, int color);
 int		degrade_blue(t_color *rgb, int cpt, int max);
 int		rgb_to_int(t_color *rgb);
-void	init_params(t_disp *d);
+void	init_params(void);
 t_param	*get_params(void);
 void	mandelbrot(t_disp *d, t_param *par, float x, float y);
 void	draw_fractal(t_disp *d);

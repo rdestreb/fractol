@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 16:39:31 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/17 16:30:38 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/17 17:36:03 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	mandelbrot(t_disp *d, t_param *par, float x, float y)
 //	cpx = (t_cpx *)ft_memalloc(sizeof(t_cpx));
 	cpx.zr = par->mod1;
 	cpx.zi = par->mod2;
-	cpx.cr = x_to_fractal(x / (1 + par->zoom));
-	cpx.ci = y_to_fractal(y / (1 + par->zoom));
+	cpx.cr = x_to_fractal(x / par->zoom);
+	cpx.ci = y_to_fractal(y / par->zoom);
 	color = 0;
 	i = -1;
 	while (modulus(cpx.zr, cpx.zi) < 4 && ++i < par->max_iter)

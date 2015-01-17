@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:42:55 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/17 16:30:55 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/17 17:27:18 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		key_hook(int keycode, t_disp *d)
 		exit(1);
 	if (keycode == 32)
 	{
-		init_params(d);
+		init_params();
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
 		draw_fractal(d);
@@ -38,7 +38,7 @@ int		key_hook(int keycode, t_disp *d)
 	}
 	if (keycode == 65361)
 	{
-		par->x0 -= 10;
+		par->x0 -= 10 / par->zoom;
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
 		draw_fractal(d);
@@ -46,7 +46,7 @@ int		key_hook(int keycode, t_disp *d)
 	}
 	if (keycode == 65362)
 	{
-		par->y0 -= 10;
+		par->y0 -= 10 / par->zoom;
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
 		draw_fractal(d);
@@ -54,7 +54,7 @@ int		key_hook(int keycode, t_disp *d)
 	}
 	if (keycode == 65363)
 	{
-		par->x0 += 10;
+		par->x0 += 10 / par->zoom;
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
 		draw_fractal(d);
@@ -62,7 +62,7 @@ int		key_hook(int keycode, t_disp *d)
 	}
 	if (keycode == 65364)
 	{
-		par->y0 += 10;
+		par->y0 += 10 / par->zoom;
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
 		draw_fractal(d);
@@ -149,14 +149,16 @@ int		motion_hook(int x, int y, t_disp *d)
 void	main_draw(char *fract)
 {
 	t_disp	*d;
+	t_param	*par;
 
+	init_params();
+	par = get_params();
 	d = (t_disp *)ft_memalloc(sizeof(t_disp));
-	d->win_size = 1000;
+	d->win_size = par->win_size;
 	d->fract = ft_atoi(fract);
 	if (!(d->mlx = mlx_init()))
 		return ;
 	d->win = mlx_new_window(d->mlx, d->win_size, d->win_size, "fract'ol");
-	init_params(d);
 //	ft_putnbr(d->fract);
 	create_image(d);
 	draw_fractal(d);

@@ -6,21 +6,21 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 13:39:43 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/17 16:33:59 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/17 16:45:56 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "fractol.h"
 
-void	init_params(t_disp *d)
+void	init_params(void)
 {
 	t_param	*par;
 
 	par = get_params();
-	par->win_size = 1000;
+	par->win_size = 500;
 	par->zoom = 1;
-	par->x0 = d->win_size / 2;
-	par->y0 = d->win_size / 2;
+	par->x0 = par->win_size / 2;
+	par->y0 = par->win_size / 2;
 	par->x_min = -2;
 	par->x_max = 0.5;
 	par->y_min = -1.25;
@@ -28,7 +28,6 @@ void	init_params(t_disp *d)
 	par->mod1 = 0;
 	par->mod2 = 0;
 	par->max_iter = 100;
-	(void)d;
 }
 
 t_param	*get_params(void)
