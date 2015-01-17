@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/06 08:23:08 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/15 16:22:58 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/17 16:05:43 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,15 @@ struct  s_param
 {
 	int	zoom;
 	int	max_iter;
+	float	win_size;
 	float	x0;
 	float	y0;
+	float	x_min;
+	float	x_max;
+	float	y_min;
+	float	y_max;
 	float	mod1;
 	float	mod2;
-	int		x_d;
-	int		y_d;
 };
 
 struct	s_image
@@ -82,11 +85,13 @@ int		mouse_hook(int button, int x, int y, t_disp *d);
 int		key_hook(int keycode, t_disp *d);
 int		expose_hook(t_disp *d);
 int		mlx_pxl_to_image(t_image *img, int x, int y, int color);
-int		degrade_blue(t_color *rgb, int cpt);
+int		degrade_blue(t_color *rgb, int cpt, int max);
 int		rgb_to_int(t_color *rgb);
 void	init_params(t_disp *d);
 t_param	*get_params(void);
 void	mandelbrot(t_disp *d, t_param *par, float x, float y);
 void	draw_fractal(t_disp *d);
+float	x_to_fractal(float x);
+float	y_to_fractal(float y);
 
 #endif

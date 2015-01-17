@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:49:11 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/15 20:14:41 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/17 15:47:51 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,26 @@ int		rgb_to_int(t_color *rgb)
     return (color);
 }
 
-int		degrade_blue(t_color *rgb, int cpt)
+int		degrade_blue(t_color *rgb, int cpt, int max)
 {
 	unsigned int	color;
 
-//	cpt *= 10;
 	if (cpt == 0)
 	{
-		rgb->b = 255;
+		rgb->b = 240;
 		rgb->g = 0;
 		rgb->r = 0;
 	}
-	if (cpt > 0 && cpt <= 255)
-		rgb->r++;
-	if (cpt > 255 && cpt <= 510)
-		rgb->b--;
-	if (cpt > 510 && cpt <= 765)
-		rgb->g++;
-	if (cpt > 765 && cpt <= 1020)
-		rgb->r--;
-    if (cpt > 1020 && cpt <= 1275)
-		rgb->b++;
-	if (cpt > 1275 && rgb->g > 0)
-		rgb->g--;
+	if (cpt > 0 && cpt <= max * 0.2)
+		rgb->r += 240 / (max * 0.2);
+	if (cpt > max * 0.2 && cpt <= max * 0.4)
+		rgb->b -= 240 / (max * 0.2);
+	if (cpt > max * 0.4 && cpt <= max * 0.6)
+		rgb->g += 240 / (max * 0.2);
+	if (cpt > max * 0.6 && cpt <= max * 0.8)
+		rgb->r -= 240 / (max * 0.2);
+    if (cpt > max * 0.8 && cpt <= max)
+		rgb->b =+ 240 / (max * 0.2);
 	color = rgb_to_int(rgb);
     return (color);
 }
