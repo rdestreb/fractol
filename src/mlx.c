@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:42:55 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/18 16:48:23 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/18 17:06:29 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ int		mouse_hook(int button, int x, int y, t_disp *d)
 //		par->proj += 1;
 	if (button == 1 && par->zoom < 1000)
 	{
-		par->x0 = x;
-		par->y0 = y;
-		par->zoom += 1;
+		par->x0 += (x - par->win_size / 2);
+		par->y0 += (y - par->win_size / 2);
+//		par->zoom += 1;
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
 		draw_fractal(d);

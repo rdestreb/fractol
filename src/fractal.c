@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 16:39:31 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/18 16:49:27 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/18 16:56:44 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	draw_fractal(t_disp *d)
 		while (++y < par->y0 + par->win_size / 2)
 		{
 			if (d->fract == 1)
-				mandelbrot(d, par, x_to_fractal(x), y_to_fractal(y));
+				mandelbrot(d, par, x, y);
 			if (d->fract == 2)
 			{
 				//julia(d, par, x, y);
@@ -103,8 +103,8 @@ void	mandelbrot(t_disp *d, t_param *par, float x, float y)
 //	cpx = (t_cpx *)ft_memalloc(sizeof(t_cpx));
 	cpx.zr = par->mod1;
 	cpx.zi = par->mod2;
-	cpx.cr = x / par->zoom;
-	cpx.ci = y / par->zoom;
+	cpx.cr = x_to_fractal(x / par->zoom);
+	cpx.ci = y_to_fractal(y / par->zoom);
 	color = 0;
 	i = -1;
 	while (modulus(cpx.zr, cpx.zi) < 2 && ++i < par->max_iter)
