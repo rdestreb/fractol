@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:42:55 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/18 14:37:42 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/18 16:48:23 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		key_hook(int keycode, t_disp *d)
 	}
 	if (keycode == 65361)
 	{
-		par->x0 -= 10 / par->zoom;
+		par->x0 += 10 / par->zoom;
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
 		draw_fractal(d);
@@ -46,7 +46,7 @@ int		key_hook(int keycode, t_disp *d)
 	}
 	if (keycode == 65362)
 	{
-		par->y0 -= 10 / par->zoom;
+		par->y0 += 10 / par->zoom;
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
 		draw_fractal(d);
@@ -54,7 +54,7 @@ int		key_hook(int keycode, t_disp *d)
 	}
 	if (keycode == 65363)
 	{
-		par->x0 += 10 / par->zoom;
+		par->x0 -= 10 / par->zoom;
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
 		draw_fractal(d);
@@ -62,7 +62,7 @@ int		key_hook(int keycode, t_disp *d)
 	}
 	if (keycode == 65364)
 	{
-		par->y0 += 10 / par->zoom;
+		par->y0 -= 10 / par->zoom;
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
 		draw_fractal(d);

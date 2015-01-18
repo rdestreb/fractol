@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 16:39:31 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/18 15:26:15 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/18 16:49:27 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ float	y_to_fractal(float y)
 	float	y_f;
 
 	par = get_params();
-	y_f = (y - par->x0 / par->win_size) * (par->y_max - par->y_min) + par->y_min;
+	y_f = (y / par->win_size) * (par->y_max - par->y_min) + par->y_min;
 	return (y_f);
 }
 
@@ -67,14 +67,13 @@ void	draw_fractal(t_disp *d)
 	t_param	*par;
 
 	par = get_params();
-	x = par->x0;
-	printf("%f\n", x_to_fractal(x));
+	x = par->x0 - par->win_size /2;
 //	ft_putendl("coucou");
-	while (x_to_fractal(++x) < par->x_max)
+	while (++x < par->x0 + par->win_size/2)
 	{
-		printf("%f\n", x_to_fractal(x));
-		y = par->y0;
-		while (y_to_fractal(++y) < par->y_max)
+//		printf("%f\n", x);
+		y = par->y0 - par->win_size / 2;
+		while (++y < par->y0 + par->win_size / 2)
 		{
 			if (d->fract == 1)
 				mandelbrot(d, par, x_to_fractal(x), y_to_fractal(y));
@@ -116,9 +115,9 @@ void	mandelbrot(t_disp *d, t_param *par, float x, float y)
 		color = degrade_blue(&rgb, i, par->max_iter);
 	}
 	if (i == par->max_iter)
-		mlx_pxl_to_image(d->img, x_to_screen(x), y_to_screen(y), 0);
+		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_size / 2), y - (par->y0 - par->win_size / 2), 0);
 	else
-		mlx_pxl_to_image(d->img, x_to_screen(x), y_to_screen(y), color);
+		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_size / 2), y - (par->y0 - par->win_size / 2), color);
 //	free(rgb);
 //	free(cpx);
 }
