@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 16:39:31 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/17 17:36:03 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/18 15:26:15 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,28 @@ float	modulus(float zr, float zi)
 {
 	float	mod;
 
-	mod = pow(zr, 2) + pow(zi, 2);
+	mod = sqrt(pow(zr, 2) + pow(zi, 2));
 	return (mod);
+}
+
+float	x_to_screen(float x_f)
+{
+	t_param	*par;
+	float	x;
+
+	par = get_params();
+	x = ((x_f - par->x_min) * par->win_size / (par->x_max - par->x_min)) + par->x0;
+	return (x);
+}
+
+float	y_to_screen(float y_f)
+{
+	t_param	*par;
+	float	y;
+
+	par = get_params();
+	y = ((y_f - par->y_min) * par->win_size / (par->y_max - par->y_min)) + par->y0;
+	return (y);
 }
 
 float	x_to_fractal(float x)
@@ -26,7 +46,7 @@ float	x_to_fractal(float x)
 	float	x_f;
 
 	par = get_params();
-	x_f = ((x + par->x0) / par->win_size) * (par->x_max - par->x_min) + par->x_min;
+	x_f = (x / par->win_size) * (par->x_max - par->x_min) + par->x_min;
 	return (x_f);
 }
 
@@ -36,7 +56,7 @@ float	y_to_fractal(float y)
 	float	y_f;
 
 	par = get_params();
-	y_f = ((y + par->y0) / par->win_size) * (par->y_max - par->y_min) + par->y_min;
+	y_f = (y - par->x0 / par->win_size) * (par->y_max - par->y_min) + par->y_min;
 	return (y_f);
 }
 
@@ -47,16 +67,17 @@ void	draw_fractal(t_disp *d)
 	t_param	*par;
 
 	par = get_params();
-	x = - par->x0;
+	x = par->x0;
+	printf("%f\n", x_to_fractal(x));
 //	ft_putendl("coucou");
-	while (++x < par->x0)
+	while (x_to_fractal(++x) < par->x_max)
 	{
-//		printf("%f\n", x_to_fractal(x));
-		y = - par->y0;
-		while (++y < par->y0)
+		printf("%f\n", x_to_fractal(x));
+		y = par->y0;
+		while (y_to_fractal(++y) < par->y_max)
 		{
 			if (d->fract == 1)
-				mandelbrot(d, par, x, y);
+				mandelbrot(d, par, x_to_fractal(x), y_to_fractal(y));
 			if (d->fract == 2)
 			{
 				//julia(d, par, x, y);
@@ -83,11 +104,11 @@ void	mandelbrot(t_disp *d, t_param *par, float x, float y)
 //	cpx = (t_cpx *)ft_memalloc(sizeof(t_cpx));
 	cpx.zr = par->mod1;
 	cpx.zi = par->mod2;
-	cpx.cr = x_to_fractal(x / par->zoom);
-	cpx.ci = y_to_fractal(y / par->zoom);
+	cpx.cr = x / par->zoom;
+	cpx.ci = y / par->zoom;
 	color = 0;
 	i = -1;
-	while (modulus(cpx.zr, cpx.zi) < 4 && ++i < par->max_iter)
+	while (modulus(cpx.zr, cpx.zi) < 2 && ++i < par->max_iter)
 	{
 		tmp = cpx.zr * cpx.zr - cpx.zi * cpx.zi + cpx.cr;
 		cpx.zi = 2 * cpx.zr * cpx.zi + cpx.ci;
@@ -95,9 +116,9 @@ void	mandelbrot(t_disp *d, t_param *par, float x, float y)
 		color = degrade_blue(&rgb, i, par->max_iter);
 	}
 	if (i == par->max_iter)
-		mlx_pxl_to_image(d->img, x + par->x0, y + par->y0, 0);
+		mlx_pxl_to_image(d->img, x_to_screen(x), y_to_screen(y), 0);
 	else
-		mlx_pxl_to_image(d->img, x + par->x0, y + par->y0, color);
+		mlx_pxl_to_image(d->img, x_to_screen(x), y_to_screen(y), color);
 //	free(rgb);
 //	free(cpx);
 }

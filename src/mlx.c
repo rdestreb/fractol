@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:42:55 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/17 17:27:18 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/18 14:37:42 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ int		mouse_hook(int button, int x, int y, t_disp *d)
 //		par->proj += 1;
 	if (button == 1 && par->zoom < 1000)
 	{
-//		par->x0 = (x - d->win_size / 2) / 100;
-//		par->y0 = (y - d->win_size / 2) / 100;
+		par->x0 = x;
+		par->y0 = y;
 		par->zoom += 1;
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
@@ -128,7 +128,7 @@ int		motion_hook(int x, int y, t_disp *d)
 //	printf("x = %d y =%d\n", x, y);
 	if (x > 0 && x < d->win_size && !(x % 20))
 	{
-		par->mod1 = (x - par->x0) / d->win_size;
+		par->mod1 = (x - par->win_size / 2) / d->win_size;
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
 		draw_fractal(d);
@@ -136,7 +136,7 @@ int		motion_hook(int x, int y, t_disp *d)
 	}
 	if (y > 0 && y < d->win_size && !(y % 20))
 	{
-		par->mod2 = (y - par->y0) / d->win_size;
+		par->mod2 = (y - par->win_size / 2) / d->win_size;
 		mlx_destroy_image(d->mlx, d->img->ptr);
 		create_image(d);
 		draw_fractal(d);
