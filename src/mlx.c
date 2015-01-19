@@ -14,7 +14,8 @@
 #include <stdio.h>
 void	redraw_image(t_disp *d)
 {
-	mlx_destroy_image(d->mlx, d->img->ptr);
+	free(d->img->ptr);
+	//mlx_destroy_image(d->mlx, d->img->ptr);
 	create_image(d);
 	draw_fractal(d);
 	expose_hook(d);
@@ -88,20 +89,25 @@ int		mouse_hook(int button, int x, int y, t_disp *d)
 	float	ecart_x;
 	float	ecart_y;
 	static int	cpt = 0;
+	int		more;
 
+	more = -1;
 	par = get_params();
-	if (button == 4 && par->zoom < 500 && !(++cpt % 5) && par->state % 2)
+	if (button == 4 && !(++cpt % 5) && par->state % 2)
 	{
-		ecart_x = (par->x0 - (par->win_center * (par->zoom))) / (par->zoom);
-		ecart_y = (par->y0 - (par->win_center * (par->zoom))) / (par->zoom);
-		x = (abs(par->win_center - x) > 15) ? x : par->win_center;
-		y = (abs(par->win_center - y) > 15) ? y : par->win_center;
-		ecart_x = (par->zoom == 1) ? (x - par->win_center) : ecart_x;
-		ecart_y = (par->zoom == 1) ? (y - par->win_center) : ecart_y;
-		par->zoom += 1;
-		par->x0 += par->win_center + ecart_x + (x - par->win_center);
-		par->y0 += par->win_center + ecart_y  + (y - par->win_center);
-		redraw_image(d);
+			ecart_x = (par->x0 - (par->win_center * (par->zoom))) / (par->zoom);
+			ecart_y = (par->y0 - (par->win_center * (par->zoom))) / (par->zoom);
+			x = (abs(par->win_center - x) > 15) ? x : par->win_center;
+			y = (abs(par->win_center - y) > 15) ? y : par->win_center;
+			ecart_x = (par->zoom == 1) ? (x - par->win_center) : ecart_x;
+			ecart_y = (par->zoom == 1) ? (y - par->win_center) : ecart_y;
+			while (++more < par->zoom / 10)
+			{
+				par->zoom += 1;
+				par->x0 += par->win_center + ecart_x + (x - par->win_center) * (!more);
+				par->y0 += par->win_center + ecart_y  + (y - par->win_center) * (!more);
+			}
+			redraw_image(d);
 	}
 	mouse_hook2(button, x, y, d);
 	return (0);

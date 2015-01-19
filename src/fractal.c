@@ -16,7 +16,7 @@ float	modulus(float zr, float zi)
 {
 	float	mod;
 
-	mod = sqrt(pow(zr, 2) + pow(zi, 2));
+	mod = pow(zr, 2) + pow(zi, 2);
 	return (mod);
 }
 
@@ -82,7 +82,7 @@ void	mandelbrot(t_disp *d, t_param *par, float x, float y)
 	cpx.ci = y_to_fractal(y / par->zoom);
 	color = 0;
 	i = -1;
-	while (modulus(cpx.zr, cpx.zi) < 2 && ++i < par->max_iter)
+	while (modulus(cpx.zr, cpx.zi) < 4.0 && ++i < par->max_iter)
 	{
 		tmp = cpx.zr * cpx.zr - cpx.zi * cpx.zi + cpx.cr;
 		cpx.zi = 2 * cpx.zr * cpx.zi + cpx.ci;
@@ -111,7 +111,7 @@ void	julia(t_disp *d, t_param *par, float x, float y)
 	cpx.ci = par->mod2;
 	color = 0;
 	i = -1;
-	while (modulus(cpx.zr, cpx.zi) < 2 && ++i < par->max_iter)
+	while (modulus(cpx.zr, cpx.zi) < 4.0 && ++i < par->max_iter)
 	{
 		tmp = cpx.zr * cpx.zr - cpx.zi * cpx.zi + cpx.cr;
 		cpx.zi = 2 * cpx.zr * cpx.zi + cpx.ci;
