@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 13:39:43 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/19 14:44:53 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/19 16:27:54 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int		main(int ac, char **av)
 	if (ac == 2 && (!ft_strcmp(av[1], "1") || !ft_strcmp(av[1], "2")
 					|| !ft_strcmp(av[1], "3")))
 	{
-		ft_putstr("OK");
 		main_draw(av[1]);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 16:39:31 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/19 13:22:32 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/19 16:25:56 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ void	draw_fractal(t_disp *d)
 			if (d->fract == 1)
 				mandelbrot(d, par, x, y);
 			if (d->fract == 2)
-			{
 				julia(d, par, x, y);
-				//	ft_putendl("julia");
-			}
 			if (d->fract == 3)
 			{
 				//other(d, par, x, y);
@@ -93,9 +90,11 @@ void	mandelbrot(t_disp *d, t_param *par, float x, float y)
 		color = degrade_blue(&rgb, i, par->max_iter);
 	}
 	if (i == par->max_iter)
-		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_center), y - (par->y0 - par->win_center), 0);
+		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_center),
+						y - (par->y0 - par->win_center), 0);
 	else
-		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_center), y - (par->y0 - par->win_center), color);
+		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_center),
+						y - (par->y0 - par->win_center), color);
 }
 
 void	julia(t_disp *d, t_param *par, float x, float y)
@@ -120,8 +119,10 @@ void	julia(t_disp *d, t_param *par, float x, float y)
 		color = degrade_blue(&rgb, i, par->max_iter);
 	}
 	if (i == par->max_iter)
-		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_center), y - (par->y0 - par->win_center), 0);
+		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_center),
+						y - (par->y0 - par->win_center), 0);
 	else
-		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_center), y - (par->y0 - par->win_center), color);
+		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_center),
+						y - (par->y0 - par->win_center), color);
 }
 

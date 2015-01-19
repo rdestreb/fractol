@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/06 08:23:08 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/19 14:38:25 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/19 17:06:22 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int		motion_hook(int x, int y, t_disp *d);
 int		mouse_hook(int button, int x, int y, t_disp *d);
 void	mouse_hook2(int button, int x, int y, t_disp *d);
 int		key_hook(int keycode, t_disp *d);
+void	key_hook2(int keycode, t_disp *d);
 int		expose_hook(t_disp *d);
 int		mlx_pxl_to_image(t_image *img, int x, int y, int color);
 int		degrade_blue(t_color *rgb, int cpt, int max);

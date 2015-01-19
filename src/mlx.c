@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:42:55 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/19 14:44:37 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/19 17:17:38 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		key_hook(int keycode, t_disp *d)
 	t_param	*par;
 
 	par = get_params();
-	printf("%d\n", keycode);
 	if (keycode == 65307)
 		exit(1);
 	if (keycode == 32)
@@ -43,7 +42,24 @@ int		key_hook(int keycode, t_disp *d)
 		redraw_image(d);
 	}
 	if (keycode == 65507)
+	{
 		par->state++;
+		if (!(par->state % 2))
+			mlx_string_put(d->mlx, d->win, par->win_center - 50,
+							d->win_size - 10, 0xFFFFFF, "Zoom disabled");
+		else
+			mlx_string_put(d->mlx, d->win, par->win_center - 50,
+							d->win_size - 10, 0xFFFFFF, "Zoom enabled");
+	}
+	key_hook2(keycode, d);
+	return (0);
+}
+
+void	key_hook2(int keycode, t_disp *d)
+{
+	t_param	*par;
+
+	par = get_params();
 	if (keycode == 65361)
 	{
 		par->x0 -= 10;
@@ -64,7 +80,6 @@ int		key_hook(int keycode, t_disp *d)
 		par->y0 += 10;
 		redraw_image(d);
 	}
-	return (0);
 }
 
 int		mouse_hook(int button, int x, int y, t_disp *d)
@@ -75,7 +90,7 @@ int		mouse_hook(int button, int x, int y, t_disp *d)
 	static int	cpt = 0;
 
 	par = get_params();
-	if (button == 4 && par->zoom < 200 && !(++cpt % 5))
+	if (button == 4 && par->zoom < 500 && !(++cpt % 5) && par->state % 2)
 	{
 		ecart_x = (par->x0 - (par->win_center * (par->zoom))) / (par->zoom);
 		ecart_y = (par->y0 - (par->win_center * (par->zoom))) / (par->zoom);
@@ -100,7 +115,7 @@ void	mouse_hook2(int button, int x, int y, t_disp *d)
 	static int	cpt = 0;
 
 	par = get_params();
-	if (button == 5 && par->zoom > 1 && !(++cpt % 5))
+	if (button == 5 && par->zoom > 1 && !(++cpt % 5) && par->state % 2)
 	{
 		ecart_x = (par->x0 - (par->win_center * (par->zoom))) / (par->zoom);
 		ecart_y = (par->y0 - (par->win_center * (par->zoom))) / (par->zoom);
@@ -136,7 +151,6 @@ int		motion_hook(int x, int y, t_disp *d)
 		par->mod2 = y_to_fractal(y);
 		redraw_image(d);
 	}
-//	mlx_clear_window(d->mlx, d->win);
 	return (0);
 }
 
