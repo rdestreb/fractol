@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/06 08:23:08 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/18 14:36:07 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/19 14:38:25 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <math.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+
+# define WIN_SIZE 500
 
 typedef struct s_cpx	t_cpx;
 typedef struct s_param	t_param;
@@ -36,8 +38,9 @@ struct  s_cpx
 struct  s_param
 {
 	float	zoom;
-	int	max_iter;
+	int		max_iter;
 	float	win_size;
+	float	win_center;
 	float	x0;
 	float	y0;
 	float	x_min;
@@ -46,6 +49,7 @@ struct  s_param
 	float	y_max;
 	float	mod1;
 	float	mod2;
+	int		state;
 };
 
 struct	s_image
@@ -80,16 +84,19 @@ struct	s_disp
 void	wrong_entry(int ac);
 void	main_draw(char *fract);
 void	create_image(t_disp *d);
+void	redraw_image(t_disp *d);
 int		motion_hook(int x, int y, t_disp *d);
 int		mouse_hook(int button, int x, int y, t_disp *d);
+void	mouse_hook2(int button, int x, int y, t_disp *d);
 int		key_hook(int keycode, t_disp *d);
 int		expose_hook(t_disp *d);
 int		mlx_pxl_to_image(t_image *img, int x, int y, int color);
 int		degrade_blue(t_color *rgb, int cpt, int max);
 int		rgb_to_int(t_color *rgb);
-void	init_params(void);
+void	init_params(t_disp *d);
 t_param	*get_params(void);
 void	mandelbrot(t_disp *d, t_param *par, float x, float y);
+void	julia(t_disp *d, t_param *par, float x, float y);
 void	draw_fractal(t_disp *d);
 float	x_to_fractal(float x);
 float	y_to_fractal(float y);
