@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:42:55 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/19 17:17:38 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/20 17:14:16 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int		key_hook(int keycode, t_disp *d)
 	{
 		par->state++;
 		if (!(par->state % 2))
-			mlx_string_put(d->mlx, d->win, par->win_center - 50,
+			mlx_string_put(d->mlx, d->win, par->center - 50,
 							d->win_size - 10, 0xFFFFFF, "Zoom disabled");
 		else
-			mlx_string_put(d->mlx, d->win, par->win_center - 50,
+			mlx_string_put(d->mlx, d->win, par->center - 50,
 							d->win_size - 10, 0xFFFFFF, "Zoom enabled");
 	}
 	key_hook2(keycode, d);
@@ -87,20 +87,24 @@ int		mouse_hook(int button, int x, int y, t_disp *d)
 	t_param	*par;
 	float	ecart_x;
 	float	ecart_y;
-	static int	cpt = 0;
+	int		moar;
 
+	moar = -1;
 	par = get_params();
-	if (button == 4 && par->zoom < 500 && !(++cpt % 5) && par->state % 2)
+	if (button == 4 && par->state % 2)
 	{
-		ecart_x = (par->x0 - (par->win_center * (par->zoom))) / (par->zoom);
-		ecart_y = (par->y0 - (par->win_center * (par->zoom))) / (par->zoom);
-		x = (abs(par->win_center - x) > 15) ? x : par->win_center;
-		y = (abs(par->win_center - y) > 15) ? y : par->win_center;
-		ecart_x = (par->zoom == 1) ? (x - par->win_center) : ecart_x;
-		ecart_y = (par->zoom == 1) ? (y - par->win_center) : ecart_y;
-		par->zoom += 1;
-		par->x0 += par->win_center + ecart_x + (x - par->win_center);
-		par->y0 += par->win_center + ecart_y  + (y - par->win_center);
+		ecart_x = (par->x0 - (par->center * (par->zoom))) / (par->zoom);
+		ecart_y = (par->y0 - (par->center * (par->zoom))) / (par->zoom);
+		x = (abs(par->center - x) > 15) ? x : par->center;
+		y = (abs(par->center - y) > 15) ? y : par->center;
+		ecart_x = (par->zoom == 1) ? (x - par->center) : ecart_x;
+		ecart_y = (par->zoom == 1) ? (y - par->center) : ecart_y;
+		while (++moar < par->zoom / 10 && par->zoom < 15000)
+		{
+			par->zoom += 1;
+			par->x0 += par->center + ecart_x + (x - par->center) * !(moar);
+			par->y0 += par->center + ecart_y + (y - par->center) * !(moar);
+		}
 		redraw_image(d);
 	}
 	mouse_hook2(button, x, y, d);
@@ -112,24 +116,28 @@ void	mouse_hook2(int button, int x, int y, t_disp *d)
 	t_param	*par;
 	float	ecart_x;
 	float	ecart_y;
-	static int	cpt = 0;
+	int		moar;
 
+	moar = -1;
 	par = get_params();
-	if (button == 5 && par->zoom > 1 && !(++cpt % 5) && par->state % 2)
+	if (button == 5 && par->zoom > 1 && par->state % 2)
 	{
-		ecart_x = (par->x0 - (par->win_center * (par->zoom))) / (par->zoom);
-		ecart_y = (par->y0 - (par->win_center * (par->zoom))) / (par->zoom);
-		par->zoom -= 1;
-		x = (abs(par->win_center - x) > 15) ? x : par->win_center;
-		y = (abs(par->win_center - y) > 15) ? y : par->win_center;
-		par->x0 = (par->win_center * (par->zoom)) + ecart_x * (par->zoom) +
-				(x - par->win_center);
-		par->y0 = (par->win_center * (par->zoom)) + ecart_y * (par->zoom) +
-				(y - par->win_center);
+		ecart_x = (par->x0 - (par->center * (par->zoom))) / (par->zoom);
+		ecart_y = (par->y0 - (par->center * (par->zoom))) / (par->zoom);
+		x = (abs(par->center - x) > 15) ? x : par->center;
+		y = (abs(par->center - y) > 15) ? y : par->center;
+		while (++moar < par->zoom / 10 && par->zoom > 1)
+		{
+			par->zoom -= 1;
+			par->x0 = (par->center * (par->zoom)) + ecart_x * (par->zoom) +
+				(x - par->center) * !(moar);
+			par->y0 = (par->center * (par->zoom)) + ecart_y * (par->zoom) +
+				(y - par->center) * !(moar);
+		}
 		if (par->zoom == 1)
 		{
-			par->x0 = par->win_center;
-			par->y0 = par->win_center;
+			par->x0 = par->center;
+			par->y0 = par->center;
 		}
 		redraw_image(d);
 	}

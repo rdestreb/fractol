@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 13:39:43 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/19 16:27:54 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/20 13:34:29 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	init_params(t_disp *d)
 
 	par = get_params();
 	par->win_size = WIN_SIZE;
-	par->win_center = par->win_size / 2;
+	par->center = par->win_size / 2;
 	par->zoom = 1;
 	par->state = 0;
-	par->x0 = par->win_center;
-	par->y0 = par->win_center;
+	par->x0 = par->center;
+	par->y0 = par->center;
 	if (d->fract == 1)
 	{
 		par->x_min = -2;

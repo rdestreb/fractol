@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 16:39:31 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/19 17:35:36 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/20 17:38:20 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ float	modulus(float zr, float zi)
 {
 	float	mod;
 
-	mod = sqrt(pow(zr, 2) + pow(zi, 2));
+	mod = pow(zr, 2) + pow(zi, 2);
 	return (mod);
 }
 
@@ -47,22 +47,27 @@ void	draw_fractal(t_disp *d)
 	t_param	*par;
 
 	par = get_params();
-	x = par->x0 - par->win_center;
-//	ft_putendl("coucou");
-	while (++x < par->x0 + par->win_center)
+	if (d->fract == 3)
+		sierpinski(d, par->center, par->center, 1, d->win_size);
+	else
 	{
-//		printf("%f\n", x);
-		y = par->y0 - par->win_center;
-		while (++y < par->y0 + par->win_center)
+		x = par->x0 - par->center;
+//		ft_putendl("coucou");
+		while (++x < par->x0 + par->center)
 		{
-			if (d->fract == 1)
-				mandelbrot(d, par, x, y);
-			if (d->fract == 2)
-				julia(d, par, x, y);
-			if (d->fract == 3)
+//			printf("%f\n", x);
+			y = par->y0 - par->center;
+			while (++y < par->y0 + par->center)
 			{
-				//other(d, par, x, y);
-				ft_putendl("other");
+				if (d->fract == 1)
+					mandelbrot(d, par, x, y);
+				if (d->fract == 2)
+					julia(d, par, x, y);
+//				if (d->fract == 3)
+//				{
+					//other(d, par, x, y);
+//					ft_putendl("other");
+//				}
 			}
 		}
 	}
@@ -82,7 +87,7 @@ void	mandelbrot(t_disp *d, t_param *par, float x, float y)
 	cpx.ci = y_to_fractal(y / par->zoom);
 	color = 0;
 	i = -1;
-	while (modulus(cpx.zr, cpx.zi) < 2 && ++i < par->max_iter)
+	while (modulus(cpx.zr, cpx.zi) < 4.0 && ++i < par->max_iter)
 	{
 		tmp = cpx.zr * cpx.zr - cpx.zi * cpx.zi + cpx.cr;
 		cpx.zi = 2 * cpx.zr * cpx.zi + cpx.ci;
@@ -90,11 +95,11 @@ void	mandelbrot(t_disp *d, t_param *par, float x, float y)
 		color = degrade_blue(&rgb, i, par->max_iter);
 	}
 	if (i == par->max_iter)
-		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_center),
-						y - (par->y0 - par->win_center), 0);
+		mlx_pxl_to_image(d->img, x - (par->x0 - par->center),
+						y - (par->y0 - par->center), 0);
 	else
-		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_center),
-						y - (par->y0 - par->win_center), color);
+		mlx_pxl_to_image(d->img, x - (par->x0 - par->center),
+						y - (par->y0 - par->center), color);
 }
 
 void	julia(t_disp *d, t_param *par, float x, float y)
@@ -111,7 +116,7 @@ void	julia(t_disp *d, t_param *par, float x, float y)
 	cpx.ci = par->mod2;
 	color = 0;
 	i = -1;
-	while (modulus(cpx.zr, cpx.zi) < 2 && ++i < par->max_iter)
+	while (modulus(cpx.zr, cpx.zi) < 4.0 && ++i < par->max_iter)
 	{
 		tmp = cpx.zr * cpx.zr - cpx.zi * cpx.zi + cpx.cr;
 		cpx.zi = 2 * cpx.zr * cpx.zi + cpx.ci;
@@ -119,10 +124,46 @@ void	julia(t_disp *d, t_param *par, float x, float y)
 		color = degrade_blue(&rgb, i, par->max_iter);
 	}
 	if (i == par->max_iter)
-		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_center),
-						y - (par->y0 - par->win_center), 0);
+		mlx_pxl_to_image(d->img, x - (par->x0 - par->center),
+						y - (par->y0 - par->center), 0);
 	else
-		mlx_pxl_to_image(d->img, x - (par->x0 - par->win_center),
-						y - (par->y0 - par->win_center), color);
+		mlx_pxl_to_image(d->img, x - (par->x0 - par->center),
+						y - (par->y0 - par->center), color);
 }
 
+
+
+void	draw_square(t_disp *d, float x, float y, float size)
+{
+	float	i;
+	float	j;
+	t_param	*par;
+
+	par = get_params();
+	i = (x - size) * par->zoom;
+	while (++i < (x + size) * par->zoom)
+	{
+		j = (y - size) * par->zoom;
+		while (++j < (y + size) * par->zoom)
+			mlx_pxl_to_image(d->img, i - (par->x0 - par->center), j - (par->y0 - par->center), 0xff6600);
+	}
+}
+
+void	sierpinski(t_disp *d, float x, float y, int n, float size)
+{
+	draw_square(d, x, y, size / 6.0);
+	if (n < MAX_ITER)
+	{
+		size /= 3.0;
+//		printf("%f\n", size);
+		sierpinski(d, x + size, y + size, n + 1, size);
+		sierpinski(d, x + size, y, n + 1, size);
+		sierpinski(d, x + size, y - size, n + 1, size);
+		sierpinski(d, x, y + size, n + 1, size);
+		sierpinski(d, x, y - size, n + 1, size);
+		sierpinski(d, x - size, y + size, n + 1, size);
+		sierpinski(d, x - size, y, n + 1, size);
+		sierpinski(d, x - size, y - size, n + 1, size);
+//		printf("coucou");
+	}
+}

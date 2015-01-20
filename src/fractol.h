@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/06 08:23:08 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/19 17:06:22 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/20 17:39:07 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/uio.h>
 
 # define WIN_SIZE 500
+# define MAX_ITER 8
 
 typedef struct s_cpx	t_cpx;
 typedef struct s_param	t_param;
@@ -40,7 +41,7 @@ struct  s_param
 	float	zoom;
 	int		max_iter;
 	float	win_size;
-	float	win_center;
+	float	center;
 	float	x0;
 	float	y0;
 	float	x_min;
@@ -101,5 +102,7 @@ void	julia(t_disp *d, t_param *par, float x, float y);
 void	draw_fractal(t_disp *d);
 float	x_to_fractal(float x);
 float	y_to_fractal(float y);
+void	draw_square(t_disp *d, float x, float y, float size);
+void	sierpinski(t_disp *d, float x, float y, int n, float size);
 
 #endif
