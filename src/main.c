@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 13:39:43 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/20 13:34:29 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/20 18:32:08 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	wrong_entry(int ac)
 		ft_putstr_fd("Error : wrong entry.\n", 2);
 	ft_putstr_fd("Please enter the digit corresponding to", 2);
 	ft_putstr_fd(" the fractal you wanna display among :\n", 2);
-	ft_putstr_fd(" 1 : Mendelbrot \n 2 : Julia \n 3 : Other\n", 2);
+	ft_putstr_fd(" 1 : Mandelbrot \n 2 : Julia \n 3 : Sierpinski carpet\n", 2);
 	exit (1);
 }
 

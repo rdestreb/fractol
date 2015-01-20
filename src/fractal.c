@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 16:39:31 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/20 17:38:20 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/20 18:48:45 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	draw_fractal(t_disp *d)
 
 	par = get_params();
 	if (d->fract == 3)
-		sierpinski(d, par->center, par->center, 1, d->win_size);
+		sierpinski(d, par->center/* * par->zoom*/, par->center/* * par->zoom*/, 1, d->win_size/* * par->zoom*/);
 	else
 	{
 		x = par->x0 - par->center;
@@ -63,11 +63,6 @@ void	draw_fractal(t_disp *d)
 					mandelbrot(d, par, x, y);
 				if (d->fract == 2)
 					julia(d, par, x, y);
-//				if (d->fract == 3)
-//				{
-					//other(d, par, x, y);
-//					ft_putendl("other");
-//				}
 			}
 		}
 	}
