@@ -6,12 +6,12 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:42:55 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/20 17:14:16 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/21 19:22:22 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
+
 void	redraw_image(t_disp *d)
 {
 	mlx_destroy_image(d->mlx, d->img->ptr);
@@ -22,9 +22,6 @@ void	redraw_image(t_disp *d)
 
 int		expose_hook(t_disp *d)
 {
-//	t_param	*par;
-
-//	par = get_params();
 	mlx_put_image_to_window(d->mlx, d->win, d->img->ptr, 0, 0);
 	return (0);
 }
@@ -91,7 +88,7 @@ int		mouse_hook(int button, int x, int y, t_disp *d)
 
 	moar = -1;
 	par = get_params();
-	if (button == 4 && par->state % 2)
+	if (button == 1 && par->state % 2)
 	{
 		ecart_x = (par->x0 - (par->center * (par->zoom))) / (par->zoom);
 		ecart_y = (par->y0 - (par->center * (par->zoom))) / (par->zoom);
@@ -120,7 +117,7 @@ void	mouse_hook2(int button, int x, int y, t_disp *d)
 
 	moar = -1;
 	par = get_params();
-	if (button == 5 && par->zoom > 1 && par->state % 2)
+	if (button == 3 && par->zoom > 1 && par->state % 2)
 	{
 		ecart_x = (par->x0 - (par->center * (par->zoom))) / (par->zoom);
 		ecart_y = (par->y0 - (par->center * (par->zoom))) / (par->zoom);
@@ -148,7 +145,6 @@ int		motion_hook(int x, int y, t_disp *d)
 	t_param	*par;
 
 	par = get_params();
-//	printf("x = %d y =%d\n", x, y);
 	if (x > 0 && x < d->win_size && !(x % 20) && !(par->state % 2))
 	{
 		par->mod1 = x_to_fractal(x);
@@ -175,13 +171,11 @@ void	main_draw(char *fract)
 	if (!(d->mlx = mlx_init()))
 		return ;
 	d->win = mlx_new_window(d->mlx, d->win_size, d->win_size, "fract'ol");
-//	ft_putnbr(d->fract);
 	create_image(d);
 	draw_fractal(d);
 	mlx_expose_hook(d->win, expose_hook, d);
 	mlx_key_hook(d->win, key_hook, d);
 	mlx_mouse_hook(d->win, mouse_hook, d);
-//	mlx_hook(d->win, 2, (1L<<0), key_hook, d);
 	mlx_hook(d->win, 6, (1L<<6), motion_hook, d);
 	mlx_loop(d->mlx);
 }

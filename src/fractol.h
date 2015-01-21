@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/06 08:23:08 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/20 18:40:17 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/21 19:20:10 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/uio.h>
 
 # define WIN_SIZE 500
-# define MAX_ITER 8
+# define MAX_ITER 9
 
 typedef struct s_cpx	t_cpx;
 typedef struct s_param	t_param;

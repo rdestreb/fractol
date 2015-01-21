@@ -6,12 +6,12 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 16:39:31 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/20 18:48:45 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/21 19:21:40 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
+
 float	modulus(float zr, float zi)
 {
 	float	mod;
@@ -48,14 +48,12 @@ void	draw_fractal(t_disp *d)
 
 	par = get_params();
 	if (d->fract == 3)
-		sierpinski(d, par->center/* * par->zoom*/, par->center/* * par->zoom*/, 1, d->win_size/* * par->zoom*/);
+		sierpinski(d, par->center, par->center, 1, d->win_size);
 	else
 	{
 		x = par->x0 - par->center;
-//		ft_putendl("coucou");
 		while (++x < par->x0 + par->center)
 		{
-//			printf("%f\n", x);
 			y = par->y0 - par->center;
 			while (++y < par->y0 + par->center)
 			{
@@ -135,22 +133,31 @@ void	draw_square(t_disp *d, float x, float y, float size)
 	t_param	*par;
 
 	par = get_params();
-	i = (x - size) * par->zoom;
-	while (++i < (x + size) * par->zoom)
+	if ((x + size) * par->zoom > 0 && (x - size) * par->zoom < d->win_size &&
+		(y + size) * par->zoom > 0 && (y - size) * par->zoom < d->win_size)
 	{
-		j = (y - size) * par->zoom;
-		while (++j < (y + size) * par->zoom)
-			mlx_pxl_to_image(d->img, i - (par->x0 - par->center), j - (par->y0 - par->center), 0xff6600);
+		i = (x - size) * par->zoom;
+		while (++i < (x + size) * par->zoom)
+		{
+			j = (y - size) * par->zoom;
+			while (++j < (y + size) * par->zoom)
+			{
+				mlx_pxl_to_image(d->img, i, j, 0xff6600);
+			}
+		}
 	}
 }
 
 void	sierpinski(t_disp *d, float x, float y, int n, float size)
 {
-	draw_square(d, x, y, size / 6.0);
+	t_param	*par;
+
+	par = get_params();
+	draw_square(d, x - (par->x0 - par->center) / par->zoom,
+				y - (par->y0 - par->center) / par->zoom, size / 6.0);
 	if (n < MAX_ITER)
 	{
 		size /= 3.0;
-//		printf("%f\n", size);
 		sierpinski(d, x + size, y + size, n + 1, size);
 		sierpinski(d, x + size, y, n + 1, size);
 		sierpinski(d, x + size, y - size, n + 1, size);
@@ -159,6 +166,5 @@ void	sierpinski(t_disp *d, float x, float y, int n, float size)
 		sierpinski(d, x - size, y + size, n + 1, size);
 		sierpinski(d, x - size, y, n + 1, size);
 		sierpinski(d, x - size, y - size, n + 1, size);
-//		printf("coucou");
 	}
 }
