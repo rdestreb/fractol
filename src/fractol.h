@@ -6,12 +6,12 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/06 08:23:08 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 19:20:10 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/21 20:32:33 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef		FRACTOL_H
-# define	FRACTOL_H
+#ifndef	FRACTOL_H
+# define FRACTOL_H
 
 # include "../libft/libft.h"
 # include <mlx.h>
@@ -22,11 +22,18 @@
 # define WIN_SIZE 500
 # define MAX_ITER 9
 
+typedef struct s_coord	t_coord;
 typedef struct s_cpx	t_cpx;
 typedef struct s_param	t_param;
 typedef struct s_image	t_image;
 typedef struct s_color	t_color;
 typedef struct s_disp	t_disp;
+
+struct	s_coord
+{
+	float	x;
+	float	y;
+};
 
 struct  s_cpx
 {
@@ -38,8 +45,8 @@ struct  s_cpx
 
 struct  s_param
 {
+	t_disp	*d;
 	float	zoom;
-	int		max_iter;
 	float	win_size;
 	float	center;
 	float	x0;
@@ -51,6 +58,8 @@ struct  s_param
 	float	mod1;
 	float	mod2;
 	int		state;
+	int		max_iter;
+	int		n;
 };
 
 struct	s_image
@@ -100,6 +109,7 @@ t_param	*get_params(void);
 void	mandelbrot(t_disp *d, t_param *par, float x, float y);
 void	julia(t_disp *d, t_param *par, float x, float y);
 void	draw_fractal(t_disp *d);
+float	modulus(float zr, float zi);
 float	x_to_fractal(float x);
 float	y_to_fractal(float y);
 void	draw_square(t_disp *d, float x, float y, float size);

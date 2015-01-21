@@ -6,39 +6,11 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 16:39:31 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 19:21:40 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/21 20:31:54 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-float	modulus(float zr, float zi)
-{
-	float	mod;
-
-	mod = pow(zr, 2) + pow(zi, 2);
-	return (mod);
-}
-
-float	x_to_fractal(float x)
-{
-	t_param	*par;
-	float	x_f;
-
-	par = get_params();
-	x_f = (x / par->win_size) * (par->x_max - par->x_min) + par->x_min;
-	return (x_f);
-}
-
-float	y_to_fractal(float y)
-{
-	t_param	*par;
-	float	y_f;
-
-	par = get_params();
-	y_f = (y / par->win_size) * (par->y_max - par->y_min) + par->y_min;
-	return (y_f);
-}
 
 void	draw_fractal(t_disp *d)
 {
@@ -124,8 +96,6 @@ void	julia(t_disp *d, t_param *par, float x, float y)
 						y - (par->y0 - par->center), color);
 }
 
-
-
 void	draw_square(t_disp *d, float x, float y, float size)
 {
 	float	i;
@@ -161,8 +131,8 @@ void	sierpinski(t_disp *d, float x, float y, int n, float size)
 		sierpinski(d, x + size, y + size, n + 1, size);
 		sierpinski(d, x + size, y, n + 1, size);
 		sierpinski(d, x + size, y - size, n + 1, size);
-		sierpinski(d, x, y + size, n + 1, size);
-		sierpinski(d, x, y - size, n + 1, size);
+		sierpinski(d, x, y + size, n + 1,  size);
+		sierpinski(d, x, y - size, n + 1,  size);
 		sierpinski(d, x - size, y + size, n + 1, size);
 		sierpinski(d, x - size, y, n + 1, size);
 		sierpinski(d, x - size, y - size, n + 1, size);

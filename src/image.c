@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:49:11 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/17 15:47:51 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/21 19:48:46 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ int		mlx_pxl_to_image(t_image *img, int x, int y, int color)
 	return (0);
 }
 
+void	redraw_image(t_disp *d)
+{
+	mlx_destroy_image(d->mlx, d->img->ptr);
+	create_image(d);
+	draw_fractal(d);
+	expose_hook(d);
+}
+
 void	create_image(t_disp *d)
 {
 	d->img = (t_image *)ft_memalloc(sizeof(t_image));
@@ -65,6 +73,4 @@ void	create_image(t_disp *d)
 	d->img->ptr = mlx_new_image(d->mlx, d->img->width, d->img->heigth);
 	d->img->data = mlx_get_data_addr(d->img->ptr, &d->img->bpp,
 									&d->img->size_line, &d->img->endian);
-//	ft_putnbr(d->fract);
 }
-

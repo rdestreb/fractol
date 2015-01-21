@@ -6,7 +6,7 @@
 #    By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/25 10:38:16 by rdestreb          #+#    #+#              #
-#    Updated: 2015/01/15 16:26:59 by rdestreb         ###   ########.fr        #
+#    Updated: 2015/01/21 19:46:01 by rdestreb         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -19,7 +19,9 @@ SCRFILES = $(addprefix $(SRCDIR)/, $(SRC))
 SRC =	main.c \
 		mlx.c \
 		image.c \
-		fractal.c
+		fractal.c \
+		tools.c \
+		hook.c
 
 OBJS = $(SCRFILES:.c=.o)
 CC = gcc
