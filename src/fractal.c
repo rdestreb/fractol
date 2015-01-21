@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 16:39:31 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 20:31:54 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/21 20:36:52 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,8 @@ void	sierpinski(t_disp *d, float x, float y, int n, float size)
 		sierpinski(d, x + size, y + size, n + 1, size);
 		sierpinski(d, x + size, y, n + 1, size);
 		sierpinski(d, x + size, y - size, n + 1, size);
-		sierpinski(d, x, y + size, n + 1,  size);
-		sierpinski(d, x, y - size, n + 1,  size);
+		sierpinski(d, x, y + size, n + 1, size);
+		sierpinski(d, x, y - size, n + 1, size);
 		sierpinski(d, x - size, y + size, n + 1, size);
 		sierpinski(d, x - size, y, n + 1, size);
 		sierpinski(d, x - size, y - size, n + 1, size);

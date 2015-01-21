@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/21 19:25:55 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 19:35:14 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/21 20:48:19 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	key_hook2(int keycode, t_disp *d)
 		par->x0 += 10;
 		redraw_image(d);
 	}
-    if (keycode == 65364)
+	if (keycode == 65364)
 	{
 		par->y0 += 10;
 		redraw_image(d);
@@ -74,7 +74,7 @@ void	mouse_hook2(int button, int x, int y, t_disp *d)
 
 	moar = -1;
 	par = get_params();
-    if (button == 3 && par->zoom > 1 && par->state % 2)
+	if (button == 3 && par->zoom > 1 && par->state % 2)
 	{
 		ecart_x = (par->x0 - (par->center * (par->zoom))) / (par->zoom);
 		ecart_y = (par->y0 - (par->center * (par->zoom))) / (par->zoom);
@@ -88,11 +88,11 @@ void	mouse_hook2(int button, int x, int y, t_disp *d)
 			par->y0 = (par->center * (par->zoom)) + ecart_y * (par->zoom) +
 						(y - par->center) * !(moar);
 		}
-		if (par->zoom == 1)
-		{
-			par->x0 = par->center;
-			par->y0 = par->center;
-		}
+//		if (par->zoom == 1)
+		//	{
+		//par->x0 = par->center;
+		//	par->y0 = par->center;
+		//}
 		redraw_image(d);
 	}
 }

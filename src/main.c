@@ -6,11 +6,11 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 13:39:43 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 20:32:02 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/21 20:42:01 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "fractol.h"
+#include "fractol.h"
 
 void	init_params(t_disp *d)
 {

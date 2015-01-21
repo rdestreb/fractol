@@ -6,11 +6,11 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/06 08:23:08 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 20:32:33 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/21 20:45:16 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	FRACTOL_H
+#ifndef FRACTOL_H
 # define FRACTOL_H
 
 # include "../libft/libft.h"
@@ -35,7 +35,7 @@ struct	s_coord
 	float	y;
 };
 
-struct  s_cpx
+struct	s_cpx
 {
 	float	zr;
 	float	zi;
@@ -43,7 +43,7 @@ struct  s_cpx
 	float	ci;
 };
 
-struct  s_param
+struct	s_param
 {
 	t_disp	*d;
 	float	zoom;

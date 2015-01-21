@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:42:55 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 19:38:51 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/21 20:42:47 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ void	main_draw(char *fract)
 	mlx_expose_hook(d->win, expose_hook, d);
 	mlx_key_hook(d->win, key_hook, d);
 	mlx_mouse_hook(d->win, mouse_hook, d);
-	mlx_hook(d->win, 6, (1L<<6), motion_hook, d);
+	mlx_hook(d->win, 6, (1L << 6), motion_hook, d);
 	mlx_loop(d->mlx);
 }

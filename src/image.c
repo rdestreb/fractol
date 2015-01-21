@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:49:11 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 19:48:46 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/21 20:41:40 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		rgb_to_int(t_color *rgb)
 	color = rgb->r << 16;
 	color += rgb->g << 8;
 	color += rgb->b;
-    return (color);
+	return (color);
 }
 
 int		degrade_blue(t_color *rgb, int cpt, int max)
@@ -40,10 +40,10 @@ int		degrade_blue(t_color *rgb, int cpt, int max)
 		rgb->g += 240 / (max * 0.2);
 	if (cpt > max * 0.6 && cpt <= max * 0.8)
 		rgb->r -= 240 / (max * 0.2);
-    if (cpt > max * 0.8 && cpt <= max)
-		rgb->b =+ 240 / (max * 0.2);
+	if (cpt > max * 0.8 && cpt <= max)
+		rgb->b += 240 / (max * 0.2);
 	color = rgb_to_int(rgb);
-    return (color);
+	return (color);
 }
 
 int		mlx_pxl_to_image(t_image *img, int x, int y, int color)
