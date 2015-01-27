@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/21 19:25:55 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 20:48:19 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/27 12:38:01 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,15 @@ int		key_hook(int keycode, t_disp *d)
 	return (0);
 }
 
+void	center(t_param *par)
+{
+	if (par->zoom == 1)
+	{
+		par->x0 = par->center;
+		par->y0 = par->center;
+	}
+}
+
 void	mouse_hook2(int button, int x, int y, t_disp *d)
 {
 	t_param	*par;
@@ -74,7 +83,7 @@ void	mouse_hook2(int button, int x, int y, t_disp *d)
 
 	moar = -1;
 	par = get_params();
-	if (button == 3 && par->zoom > 1 && par->state % 2)
+	if (button == 5 && par->zoom > 1 && par->state % 2)
 	{
 		ecart_x = (par->x0 - (par->center * (par->zoom))) / (par->zoom);
 		ecart_y = (par->y0 - (par->center * (par->zoom))) / (par->zoom);
@@ -88,11 +97,7 @@ void	mouse_hook2(int button, int x, int y, t_disp *d)
 			par->y0 = (par->center * (par->zoom)) + ecart_y * (par->zoom) +
 						(y - par->center) * !(moar);
 		}
-//		if (par->zoom == 1)
-		//	{
-		//par->x0 = par->center;
-		//	par->y0 = par->center;
-		//}
+		center(par);
 		redraw_image(d);
 	}
 }
@@ -106,7 +111,7 @@ int		mouse_hook(int button, int x, int y, t_disp *d)
 
 	moar = -1;
 	par = get_params();
-	if (button == 1 && par->state % 2)
+	if (button == 4 && par->state % 2)
 	{
 		ecart_x = (par->x0 - (par->center * (par->zoom))) / (par->zoom);
 		ecart_y = (par->y0 - (par->center * (par->zoom))) / (par->zoom);
@@ -123,23 +128,5 @@ int		mouse_hook(int button, int x, int y, t_disp *d)
 		redraw_image(d);
 	}
 	mouse_hook2(button, x, y, d);
-	return (0);
-}
-
-int		motion_hook(int x, int y, t_disp *d)
-{
-	t_param	*par;
-
-	par = get_params();
-	if (x > 0 && x < d->win_size && !(x % 20) && !(par->state % 2))
-	{
-		par->mod1 = x_to_fractal(x);
-		redraw_image(d);
-	}
-	if (y > 0 && y < d->win_size && !(y % 20) && !(par->state % 2))
-	{
-		par->mod2 = y_to_fractal(y);
-		redraw_image(d);
-	}
 	return (0);
 }

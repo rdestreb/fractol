@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/06 08:23:08 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 20:45:16 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/27 12:56:35 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	draw_fractal(t_disp *d);
 float	modulus(float zr, float zi);
 float	x_to_fractal(float x);
 float	y_to_fractal(float y);
-void	draw_square(t_disp *d, float x, float y, float size);
-void	sierpinski(t_disp *d, float x, float y, int n, float size);
+void	draw_square(float x, float y, float size);
+void	sierpinski(float x, float y, int n, float size);
 
 #endif

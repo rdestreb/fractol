@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 15:42:55 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 20:42:47 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/27 12:39:30 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,24 @@
 int		expose_hook(t_disp *d)
 {
 	mlx_put_image_to_window(d->mlx, d->win, d->img->ptr, 0, 0);
+	return (0);
+}
+
+int		motion_hook(int x, int y, t_disp *d)
+{
+	t_param	*par;
+
+	par = get_params();
+	if (x > 0 && x < d->win_size && !(x % 20) && !(par->state % 2))
+	{
+		par->mod1 = x_to_fractal(x);
+		redraw_image(d);
+	}
+	if (y > 0 && y < d->win_size && !(y % 20) && !(par->state % 2))
+	{
+		par->mod2 = y_to_fractal(y);
+		redraw_image(d);
+	}
 	return (0);
 }
 

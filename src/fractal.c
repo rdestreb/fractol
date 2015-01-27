@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 16:39:31 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 20:36:52 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/27 12:57:16 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_fractal(t_disp *d)
 
 	par = get_params();
 	if (d->fract == 3)
-		sierpinski(d, par->center, par->center, 1, d->win_size);
+		sierpinski(par->center, par->center, 1, d->win_size);
 	else
 	{
 		x = par->x0 - par->center;
@@ -96,45 +96,43 @@ void	julia(t_disp *d, t_param *par, float x, float y)
 						y - (par->y0 - par->center), color);
 }
 
-void	draw_square(t_disp *d, float x, float y, float size)
+void	draw_square(float x, float y, float size)
 {
 	float	i;
 	float	j;
 	t_param	*par;
 
 	par = get_params();
-	if ((x + size) * par->zoom > 0 && (x - size) * par->zoom < d->win_size &&
-		(y + size) * par->zoom > 0 && (y - size) * par->zoom < d->win_size)
+	if ((x + size) * par->zoom > 0 && (x - size) * par->zoom < par->win_size &&
+		(y + size) * par->zoom > 0 && (y - size) * par->zoom < par->win_size)
 	{
 		i = (x - size) * par->zoom;
 		while (++i < (x + size) * par->zoom)
 		{
 			j = (y - size) * par->zoom;
 			while (++j < (y + size) * par->zoom)
-			{
-				mlx_pxl_to_image(d->img, i, j, 0xff6600);
-			}
+				mlx_pxl_to_image(par->d->img, i, j, 0xff6600);
 		}
 	}
 }
 
-void	sierpinski(t_disp *d, float x, float y, int n, float size)
+void	sierpinski(float x, float y, int n, float size)
 {
 	t_param	*par;
 
 	par = get_params();
-	draw_square(d, x - (par->x0 - par->center) / par->zoom,
+	draw_square(x - (par->x0 - par->center) / par->zoom,
 				y - (par->y0 - par->center) / par->zoom, size / 6.0);
 	if (n < MAX_ITER)
 	{
 		size /= 3.0;
-		sierpinski(d, x + size, y + size, n + 1, size);
-		sierpinski(d, x + size, y, n + 1, size);
-		sierpinski(d, x + size, y - size, n + 1, size);
-		sierpinski(d, x, y + size, n + 1, size);
-		sierpinski(d, x, y - size, n + 1, size);
-		sierpinski(d, x - size, y + size, n + 1, size);
-		sierpinski(d, x - size, y, n + 1, size);
-		sierpinski(d, x - size, y - size, n + 1, size);
+		sierpinski(x + size, y + size, n + 1, size);
+		sierpinski(x + size, y, n + 1, size);
+		sierpinski(x + size, y - size, n + 1, size);
+		sierpinski(x, y + size, n + 1, size);
+		sierpinski(x, y - size, n + 1, size);
+		sierpinski(x - size, y + size, n + 1, size);
+		sierpinski(x - size, y, n + 1, size);
+		sierpinski(x - size, y - size, n + 1, size);
 	}
 }

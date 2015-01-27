@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 13:39:43 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/21 20:42:01 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/27 12:54:07 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_params(t_disp *d)
 	t_param	*par;
 
 	par = get_params();
+	par->d = d;
 	par->win_size = WIN_SIZE;
 	par->center = par->win_size / 2;
 	par->zoom = 1;
