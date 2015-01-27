@@ -6,7 +6,7 @@
 /*   By: rdestreb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/06 08:23:08 by rdestreb          #+#    #+#             */
-/*   Updated: 2015/01/27 13:02:10 by rdestreb         ###   ########.fr       */
+/*   Updated: 2015/01/27 14:49:31 by rdestreb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,11 @@
 # define WIN_SIZE 500
 # define MAX_ITER 9
 
-typedef struct s_coord	t_coord;
 typedef struct s_cpx	t_cpx;
 typedef struct s_param	t_param;
 typedef struct s_image	t_image;
 typedef struct s_color	t_color;
 typedef struct s_disp	t_disp;
-
-struct	s_coord
-{
-	float	x;
-	float	y;
-};
 
 struct	s_cpx
 {
