@@ -17,22 +17,22 @@ void	key_hook2(int keycode, t_disp *d)
 	t_param	*par;
 
 	par = get_params();
-	if (keycode == 65361)
+	if (keycode == 123)
 	{
 		par->x0 -= 10;
 		redraw_image(d);
 	}
-	if (keycode == 65362)
+	if (keycode == 125)
 	{
 		par->y0 -= 10;
 		redraw_image(d);
 	}
-	if (keycode == 65363)
+	if (keycode == 124)
 	{
 		par->x0 += 10;
 		redraw_image(d);
 	}
-	if (keycode == 65364)
+	if (keycode == 126)
 	{
 		par->y0 += 10;
 		redraw_image(d);
@@ -44,14 +44,14 @@ int		key_hook(int keycode, t_disp *d)
 	t_param	*par;
 
 	par = get_params();
-	if (keycode == 65307)
+	if (keycode == 53)
 		exit(1);
-	if (keycode == 32)
+	if (keycode == 36)
 	{
 		init_params(d);
 		redraw_image(d);
 	}
-	if (keycode == 65507)
+	if (keycode == 49)
 	{
 		par->state++;
 		if (!(par->state % 2))
@@ -87,8 +87,8 @@ void	mouse_hook2(int button, int x, int y, t_disp *d)
 	{
 		ecart_x = (par->x0 - (par->center * (par->zoom))) / (par->zoom);
 		ecart_y = (par->y0 - (par->center * (par->zoom))) / (par->zoom);
-		x = (abs(par->center - x) > 15) ? x : par->center;
-		y = (abs(par->center - y) > 15) ? y : par->center;
+		x = (fabsf(par->center - x) > 15) ? x : par->center;
+		y = (fabsf(par->center - y) > 15) ? y : par->center;
 		while (++moar < par->zoom / 10 && par->zoom > 1)
 		{
 			par->zoom -= 1;
@@ -115,8 +115,8 @@ int		mouse_hook(int button, int x, int y, t_disp *d)
 	{
 		ecart_x = (par->x0 - (par->center * (par->zoom))) / (par->zoom);
 		ecart_y = (par->y0 - (par->center * (par->zoom))) / (par->zoom);
-		x = (abs(par->center - x) > 15) ? x : par->center;
-		y = (abs(par->center - y) > 15) ? y : par->center;
+		x = (fabsf(par->center - x) > 15) ? x : par->center;
+		y = (fabsf(par->center - y) > 15) ? y : par->center;
 		ecart_x = (par->zoom == 1) ? (x - par->center) : ecart_x;
 		ecart_y = (par->zoom == 1) ? (y - par->center) : ecart_y;
 		while (++moar < par->zoom / 10 && par->zoom < 15000)

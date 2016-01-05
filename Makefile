@@ -26,7 +26,7 @@ SRC =	main.c \
 OBJS = $(SCRFILES:.c=.o)
 CC = gcc
 CFLAGS = -O3 -Wall -Werror -Wextra
-LDFLAGS = -L ./libft/ -lft -L/usr/X11/lib -lmlx -lXext -lX11
+LDFLAGS = -L ./libft/ -lft -L ./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit
 LIBFT = ./libft/libft.a
 
 all: $(NAME)
